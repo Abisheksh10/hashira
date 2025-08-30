@@ -77,8 +77,8 @@ public class SecretReconstruct {
             for (int j = 0; j < k; j++) {
                 if (i == j) continue;
                 BigInteger xj = BigInteger.valueOf(xs[j]);
-                numer = modMul(numer, mod(xj.negate(), p), p);        // (-x_j)
-                denom = modMul(denom, mod(xi.subtract(xj), p), p);    // (x_i - x_j)
+                numer = modMul(numer, mod(xj.negate(), p), p);     
+                denom = modMul(denom, mod(xi.subtract(xj), p), p);  
             }
             BigInteger li0 = modMul(numer, modInv(denom, p), p);
             sum = modAdd(sum, modMul(ys[i], li0, p), p);
@@ -86,7 +86,7 @@ public class SecretReconstruct {
         return sum;
     }
 
-    // f(X) via Lagrange sum using the same k points
+   
     static BigInteger evalAtXFromSubset(int[] xs, BigInteger[] ys, int X, BigInteger p) {
         int k = xs.length;
         BigInteger x = BigInteger.valueOf(X);
@@ -98,8 +98,8 @@ public class SecretReconstruct {
             for (int j = 0; j < k; j++) {
                 if (i == j) continue;
                 BigInteger xj = BigInteger.valueOf(xs[j]);
-                numer = modMul(numer, mod(x.subtract(xj), p), p);     // (x - x_j)
-                denom = modMul(denom, mod(xi.subtract(xj), p), p);    // (x_i - x_j)
+                numer = modMul(numer, mod(x.subtract(xj), p), p);   
+                denom = modMul(denom, mod(xi.subtract(xj), p), p);   
             }
             BigInteger Li = modMul(numer, modInv(denom, p), p);
             sum = modAdd(sum, modMul(ys[i], Li, p), p);
@@ -107,7 +107,7 @@ public class SecretReconstruct {
         return sum;
     }
 
-    // combinations of indices [0..n-1] choose k; action receives a SNAPSHOT
+   
     static void combinations(int n, int k, IntConsumer action) {
         int[] idx = new int[k];
         for (int i = 0; i < k; i++) idx[i] = i;
@@ -122,7 +122,7 @@ public class SecretReconstruct {
     }
     interface IntConsumer { void accept(int[] comb); }
 
-    // Holder so the lambda can update results (lambda-captured refs must be effectively final)
+   
     static class Best {
         int agree = -1;
         BigInteger secret = null;
